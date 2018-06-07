@@ -10,10 +10,8 @@ namespace app\api\controller;
 
 
 use app\common\controller\Api;
-use app\common\facade\Auth;
 use app\common\model\User;
 use app\common\validate\UserValidate;
-use think\facade\Request;
 
 class UserController extends Api
 {
