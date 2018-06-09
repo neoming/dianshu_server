@@ -12,6 +12,7 @@
 
 use think\facade\Route;
 
+Route::any('/', "index/Index/index");
 
 return [
 
