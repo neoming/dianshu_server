@@ -66,11 +66,19 @@ Route::group('api', function(){
         })->pattern('id', '\d+');
     })->middleware('apiAuth');
 
+    //书内容(需验证)
     Route::group('book/item',function (){
         Route::any('add','api/BookEditController/itemAdd');
         Route::any('edit','api/BookEditController/itemEdit');
         Route::any('remove','api/BookEditController/itemRemove');
         Route::any('move','api/BookEditController/itemMove');
+    })->middleware('apiAuth');
+
+    //书人物(需验证)
+    Route::group('book/character',function (){
+        Route::any('add','api/BookCharacterController/add');
+        Route::any('edit','api/BookCharacterController/edit');
+        Route::any('remove','api/BookCharacterController/remove');
     })->middleware('apiAuth');
 
     //书相关(不需验证)
