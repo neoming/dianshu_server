@@ -174,32 +174,32 @@ class BookEditController extends Api
             e(1,$vali->getError());
 
         //get the target bookitem and validate the book
-        $targetitem = BookItem::where(['id'=>$id])->find();
-        if(!$targetitem)e(2,'no such book item');
-        $book = $targetitem->book;
+        $target_item = BookItem::where(['id'=>$id])->find();
+        if(!$target_item)e(2,'no such book item');
+        $book = $target_item->book;
         if(!$book)e(3,'no such a book');
-        if($book->id!=$targetitem->book_id)e(4,'the book do not have such item');
 
         //validate the dest_item
         $dest_item = BookItem::where(['id'=>$dest_id])->find();
         if(!$dest_item)e(4,'no such dest_item');
-        $target_order = $targetitem->order_id;
-        if($target_order==$dest_id)e(5,"param error");
-        elseif($target_order>$dest_id){
-            $book_items = $book->items()->whereBetween('order_id',[$dest_id,$target_order-1])->select();
+        $dest_order = $dest_item->order_id;
+        $target_order = $target_item->order_id;
+        if($target_order==$dest_order)e(5,"param error");
+        elseif($target_order>$dest_order){
+            $book_items = $book->items()->whereBetween('order_id',[$dest_order,$target_order-1])->select();
             foreach ($book_items as $item){
                 $item->setInc('order_id');
                 $item->save();
             }
         }else{
-            $book_items = $book->items()->whereBetween('order_id',[$target_order+1,$dest_id])->select();
+            $book_items = $book->items()->whereBetween('order_id',[$target_order+1,$dest_order])->select();
             foreach ($book_items as $item){
                 $item->setDec('order_id');
                 $item->save();
             }
         }
-        $targetitem->order_id=$dest_id;
-        $targetitem->save();
+        $target_item->order_id=$dest_order;
+        $target_item->save();
         s('success');
     }
 }

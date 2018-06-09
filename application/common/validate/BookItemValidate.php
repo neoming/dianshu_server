@@ -44,7 +44,7 @@ class BookItemValidate extends Validate
         'itemAdd' => ['book_id','type','position','character_id','content'],
         'itemEdit'=>['type','position','character_id','content'],
         'itemRemove'=>['id','book_id'],
-        'itemMove'=>['dest_id','order_id']
+        'itemMove'=>['dest_id','id']
     ];
 
     public function sceneRegister(){
