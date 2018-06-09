@@ -5,6 +5,13 @@ use think\facade\Route;
 
 Route::group('api', function(){
 
+    Route::group('upload', function(){
+
+        Route::any('image', 'api/UploadController/image');
+
+    })->middleware('apiAuth');
+
+
     //用户相关(不需验证)
     Route::group('user', function(){
 
