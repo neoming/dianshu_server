@@ -45,6 +45,12 @@ class BookController extends Api
         $books = $bookBuilder->order($order, 'DESC')
             ->page($page, 10)
              ->select();
+        foreach ($books as $book){
+            /**
+             * @var Book $book
+             */
+            $book->author;
+        }
         s('success', $books);
     }
 
