@@ -59,5 +59,22 @@ Route::group('api', function(){
         Route::any(':type', 'api/BookController/getList');
     });
 
+//需要验证
+
+    Route::group('comment',function (){
+
+        Route::any('comment','api/CommentController/comment');
+
+        Route::any('edit','api/CommentController/edit');
+
+        Route::any('delete','api/CommentController/delete');
+
+        Route::any('get_comment','api/CommentController/get_comment');
+
+        Route::any('get_my_comment_list','api/CommentController/get_my_comment_list');
+
+        Route::any('info','api/CommentController/info');
+
+    })->middleware('apiAuth');
 
 });

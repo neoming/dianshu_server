@@ -12,7 +12,6 @@
 
 use think\facade\Route;
 
-require_once __DIR__ . '/api.php';
 
 return [
 
