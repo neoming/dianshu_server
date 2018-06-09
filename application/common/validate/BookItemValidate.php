@@ -20,7 +20,8 @@ class BookItemValidate extends Validate
         'position' => 'require|in:0,1,2',
         'character_id'=>'require|number',
         'content'=>'require|max:500',
-        'dest_id'=>'number|require'
+        'dest_id'=>'number|require',
+        'id'=>'number|require'
     ];
 
     protected $message = [

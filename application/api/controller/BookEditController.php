@@ -93,7 +93,7 @@ class BookEditController extends Api
         $inputs['order_id'] = $order_id;
         $bookitem->allowField(['book_id','type', 'position', 'character_id','content','order_id'])
             ->save($inputs);
-        s('success'.$order_id, $bookitem);
+        s('success', $bookitem);
     }
 
     /**
