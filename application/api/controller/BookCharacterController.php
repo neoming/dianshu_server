@@ -76,7 +76,6 @@ class BookCharacterController extends Api
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
-     *
      */
     public function remove(User $user,$book_id,$character_id){
         $inputs = input('request.');
