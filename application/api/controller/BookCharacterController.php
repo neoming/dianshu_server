@@ -9,7 +9,10 @@
 namespace app\api\controller;
 
 
+use app\common\controller\Api;
+use app\common\model\Book;
 use app\common\model\BookCharacter;
+
 use app\common\validate\BookCharacterValidate;
 
 class BookCharacterController extends Api
