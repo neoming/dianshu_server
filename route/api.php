@@ -19,6 +19,26 @@ Route::group('api', function(){
     Route::group('user', function(){
 
         Route::any('info', 'api/UserController/info');
+
+        Route::any('profile/:id','api/UserController/profile')
+            ->pattern('id', '\d+');
+
+        Route::any('follow', 'api/UserController/follow');
+
+        Route::any('unfollow', 'api/UserController/unfollow');
+
+        Route::any('get_followings', 'api/UserController/getFollowingList');
+
+        Route::any('get_followed_bys', 'api/UserController/getFollowedByList');
+
+        Route::any('favor', 'api/UserFavorController/favor');
+
+        Route::any('unfavor', 'api/UserFavorController/unfavor');
+
+        Route::any('get_favorings', 'api/UserFavorController/getFavoringList');
+
+        Route::any('is_favored', 'api/UserFavorController/isFavored');
+
     })->middleware('apiAuth');
 
 
@@ -59,8 +79,8 @@ Route::group('api', function(){
         Route::any(':type', 'api/BookController/getList');
     });
 
-//需要验证
 
+    //用户评价(需验证)
     Route::group('comment',function (){
 
         Route::any('comment','api/CommentController/comment');
