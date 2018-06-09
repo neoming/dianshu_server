@@ -3,34 +3,96 @@
  * Created by PhpStorm.
  * User: ASUS
  * Date: 2018/6/9
- * Time: 17:19
+ * Time: 17:16
  */
 
-namespace app\common\validate;
+namespace app\api\controller;
 
 
-class BookCharacterValidate
+use app\common\controller\Api;
+use app\common\model\Book;
+use app\common\model\BookCharacter;
+
+use app\common\model\User;
+use app\common\validate\BookCharacterValidate;
+
+class BookCharacterController extends Api
 {
-    protected $rule = [
-        'book_id' => 'require|number',
-        'name' => 'require|max:20',
-        'avatar' => 'max:50',
-        'character_id'=>'require|number'
-    ];
 
-    protected $message = [
-        'book_id.require' => 'book_id cannot be empty',
-        'book_id.number' => 'book_id must be a number',
-        'name.require' => 'order_id cannot be empty',
-        'name.max' => 'length of name cannot be over 20',
-        'avatar.max' =>'length of avtar cannot be over 50',
-        'character_id.require'=>'character_id can not be empty',
-        'character_id.number'=> 'character_id must be a number'
-    ];
+    /**
+     * @param User $user
+     * @param $book_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function add(User $user,$book_id){
+        $inputs = input('request.');
+        $vali = new BookCharacterValidate();
+        if(!$vali->scene('addCharacter')->check($inputs))
+            e(1, $vali->getError());
+        $book = Book::where('id',$book_id)->find();
+        if(!$book)e(2,'error book id');
+        if($user->id != $book->author_id)e(3,'error user id');
 
-    protected $scene = [
-        'addCharacter' => ['book_id','name','avatar'],
-        'editCharacter'=>['character_id','name','avatar','book_id'],
-        'removeCharacter'=>['character_id','book_id']
-    ];
+        $character = new BookCharacter();
+        $character->allowField(['book_id','name', 'avatar'])
+            ->save($inputs);
+        s('success', $character);
+    }
+
+    /**
+     * @param User $user
+     * @param $character_id
+     * @param $book_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function edit(User $user,$character_id,$book_id){
+        $inputs = input('request.');
+        $vali = new BookCharacterValidate();
+
+        if(!$vali->scene('editCharacter')->check($inputs))
+            e(1, $vali->getError());
+
+        $book = Book::where('id',$book_id)->find();
+        if(!$book)e(2,'no such book');
+
+        $character = BookCharacter::where('id',$character_id)->find();
+        if(!$character)e(3,'no such character');
+
+        if($user->id != $book->author_id)e(3,'user_id don not match the author_id');
+
+        $character->allowField(['name', 'avatar'])
+            ->save($inputs);
+        s("success");
+    }
+
+    /**
+     * @param User $user
+     * @param $book_id
+     * @param $character_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     *
+     */
+    public function remove(User $user,$book_id,$character_id){
+        $inputs = input('request.');
+        $vali = new BookCharacterValidate();
+
+        if(!$vali->scene('removeCharacter')->check($inputs))
+            e(1, $vali->getError());
+
+        $book = Book::where('id',$book_id)->find();
+        if(!$book)e(2,'no such book');
+
+
+        if($user->id != $book->author_id)e(3,'user_id don not match the author_id');
+
+        BookCharacter::where('id',$character_id)->delete();
+        s("success");
+    }
+
 }
