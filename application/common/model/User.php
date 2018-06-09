@@ -20,6 +20,9 @@ class User extends Model
         return $this->hasMany('Book', 'author_id', 'id');
     }
 
+    /**
+     * @throws \think\Exception
+     */
     public function incrWorkCount(){
         if($this->work_count === null){
             $this->work_count = 1;
