@@ -17,10 +17,7 @@ use app\common\validate\BookCharacterValidate;
 class BookCharacterController extends Api
 {
 
-    /**
-     * @param User $user
-     * @param $book_id
-     */
+
     public function add(User $user,$book_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
@@ -36,11 +33,7 @@ class BookCharacterController extends Api
         s('success', $character);
     }
 
-    /**
-     * @param User $user
-     * @param $character_id
-     * @param $book_id
-     */
+
     public function edit(User $user,$character_id,$book_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
@@ -61,11 +54,7 @@ class BookCharacterController extends Api
         s("success");
     }
 
-    /**
-     * @param User $user
-     * @param $book_id
-     * @param $character_id
-     */
+
     public function remove(User $user,$book_id,$character_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
