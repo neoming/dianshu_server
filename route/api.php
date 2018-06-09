@@ -39,6 +39,12 @@ Route::group('api', function(){
         })->pattern('id', '\d+');
     })->middleware('apiAuth');
 
+    Route::group('book/item',function (){
+        Route::any('add','api/BookEditController/itemAdd');
+        Route::any('edit','api/BookEditController/itemEdit');
+        Route::any('remove','api/BookEditController/itemRemove');
+        Route::any('move','api/BookEditController/itemMove');
+    })->middleware('apiAuth');
 
     //书相关(不需验证)
     Route::group('book', function(){
