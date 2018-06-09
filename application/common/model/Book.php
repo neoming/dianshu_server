@@ -16,7 +16,7 @@ class Book extends Model
     public $autoWriteTimestamp = true;
 
     public function author(){
-        return $this->belongsTo('User', 'user_id', 'id');
+        return $this->belongsTo('User', 'author_id', 'id');
     }
 
     public function characters(){
