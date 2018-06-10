@@ -79,6 +79,7 @@ Route::group('api', function(){
         Route::any('add','api/BookCharacterController/add');
         Route::any('edit','api/BookCharacterController/edit');
         Route::any('remove','api/BookCharacterController/remove');
+        Route::any('characters','api/BookCharacterController/getCharacterList');
     })->middleware('apiAuth');
 
     //书相关(不需验证)
@@ -94,22 +95,6 @@ Route::group('api', function(){
         Route::any('all', 'api/BookController/getList');
         Route::any(':type', 'api/BookController/getList');
     });
-
-
-    //书人物(需验证)
-
-    Route::group('book/character',function (){
-
-        Route::any('add','api/BookCharacterController/add');
-
-        Route::any('edit','api/BookCharacterController/edit');
-
-        Route::any('remove','api/BookCharacterController/remove');
-
-    })->middleware('apiAuth');
-
-
-
 
     //用户评价(需验证)
     Route::group('comment',function (){

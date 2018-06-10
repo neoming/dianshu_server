@@ -94,4 +94,24 @@ class BookCharacterController extends Api
         s("success");
     }
 
+    /**
+     * @param User $user
+     * @param $book_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getCharacterList(User $user,$book_id){
+        $inputs = input('request.');
+        $validate = new BookCharacterValidate();
+        if(!$validate->scene('getCharacterList')->check($inputs))
+            e(1, $validate->getError());
+        $book = Book::where('id',$book_id)->find();
+        if(!$book)e(2,'no such book');
+        if($user->id != $book->author_id)e(3,'user_id don not match the author_id');
+        $characters = BookCharacter::where('book_id','=',$book_id)->select();
+        $count = $characters->count();
+        if(!$count)e(4,'no characters yet');
+        s("success2",$characters);
+    }
 }

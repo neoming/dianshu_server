@@ -33,6 +33,7 @@ class BookCharacterValidate extends Validate
     protected $scene = [
         'addCharacter' => ['book_id','name','avatar'],
         'editCharacter'=>['character_id','name','avatar','book_id'],
-        'removeCharacter'=>['character_id','book_id']
+        'removeCharacter'=>['character_id','book_id'],
+        'getCharacterList'=>['book_id']
     ];
 }
