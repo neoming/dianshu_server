@@ -23,7 +23,7 @@ class BookCharacterValidate extends Validate
     protected $message = [
         'book_id.require' => 'book_id cannot be empty',
         'book_id.number' => 'book_id must be a number',
-        'name.require' => 'order_id cannot be empty',
+        'name.require' => 'name cannot be empty',
         'name.max' => 'length of name cannot be over 20',
         'avatar.max' =>'length of avtar cannot be over 50',
         'character_id.require'=>'character_id can not be empty',
