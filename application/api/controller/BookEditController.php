@@ -105,9 +105,9 @@ class BookEditController extends Api
         $vali = new BookItemValidate();
         if(!$vali->scene('itemEdit')->check($inputs))
             e(1,$vali->getError());
-        $bookitem = BookItem::where('id','=',$item_id);
+        $bookitem = BookItem::where('id',$item_id)->find();
         if(!$bookitem)e(2,'item not find');
-        if($bookitem->book->author_id != $user->id)e(3,"unauthorized");
+        if($bookitem->book->author_id!= $user->id)e(3,"unauthorized");
         $bookitem->allowField(['type', 'position', 'character_id','content'])
             ->save($inputs);
         s('success',$bookitem);
