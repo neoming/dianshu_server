@@ -66,7 +66,7 @@ class BookCharacterController extends Api
 
         $character->allowField(['name', 'avatar'])
             ->save($inputs);
-        s("success");
+        s("success",$character);
     }
 
     /**
