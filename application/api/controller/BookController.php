@@ -71,5 +71,37 @@ class BookController extends Api
         }
         s('success', $items);
     }
+    
+    /**
+     * @param null $key_words
+     * @param int $page
+     * @param int $order
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function searchBook($key_words = null,$page = 1,$order=0){
+        switch ($order){
+            case 0:
+            default:
+                $order = 'id';
+                break;
+            case 1:
+                $order = 'view_count';
+                break;
+            case 2:
+                $order = 'favor_count';
+        }
+        $books = (new Book());
+        $books = $books->where('title','like','%'.$key_words.'%')
+            ->whereOr('type','like','%'.$key_words.'%')
+            ->whereOr('desc','like','%'.$key_words.'%')
+            ->order($order,'DESC')
+            ->page($page,10)
+            ->select();
+        $count = $books->count();
+        if(!$count)e(1,'no book find');
+        s('success',$books);
+    }
 
 }
