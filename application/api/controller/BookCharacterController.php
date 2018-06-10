@@ -44,10 +44,6 @@ class BookCharacterController extends Api
     /**
      * @param User $user
      * @param $character_id
-     * @param $book_id
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
      */
     public function edit(User $user,$character_id){
         $inputs = input('request.');
@@ -58,8 +54,9 @@ class BookCharacterController extends Api
 
 
         $character = BookCharacter::where('id',$character_id)->find();
+        $book = $character->book;
         if(!$character)e(2,'no such character');
-        if(!$character->book)e(3,'book not fund');
+        if(!$book)e(3,'book not fund');
         if($user->id != $character->book->author_id)e(4,'unauthorized');
 
         $character->allowField(['name', 'avatar'])
@@ -77,9 +74,9 @@ class BookCharacterController extends Api
 
         if(!$vali->scene('removeCharacter')->check($inputs))
             e(1, $vali->getError());
-        $character = BookCharacter::where('id','=',$character_id);
+        $character = BookCharacter::where('id',$character_id)->find();
+        if(!$character)e(2,"character not found");
         if(!$character->book)e(2,'no such book');
-
 
         if($user->id != $character->book->author_id)e(3,'unauthorized');
 
