@@ -44,15 +44,8 @@ class BookItemValidate extends Validate
     protected $scene = [
         'itemAdd' => ['book_id','type','position','character_id','content'],
         'itemEdit'=>['type','position','character_id','content'],
-        'itemRemove'=>['id','book_id'],
+        'itemRemove'=>['id'],
         'itemMove'=>['dest_id','id']
     ];
 
-    public function sceneRegister(){
-        return $this->only(['username', 'password', 'phone'])
-            ->append('username', 'unique:user')
-            ->message('username.unique', 'username already exists')
-            ->append('phone', 'unique:user')
-            ->message('phone.unique', 'phone already exists');
-    }
 }

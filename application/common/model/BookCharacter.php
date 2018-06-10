@@ -13,5 +13,7 @@ use think\Model;
 
 class BookCharacter extends Model
 {
-
+    public function book(){
+        return $this->belongsTo('Book', 'book_id', 'id');
+    }
 }

@@ -99,20 +99,15 @@ class BookEditController extends Api
     /**
      * @param $item_id
      * @param User $user
-     * @param $book_id
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
      */
-    public function itemEdit($item_id,User $user,$book_id){
+    public function itemEdit($item_id,User $user){
         $inputs = input('request.');
         $vali = new BookItemValidate();
         if(!$vali->scene('itemEdit')->check($inputs))
             e(1,$vali->getError());
-        $book = Book::where('id',$book_id)->find();
-        if($book->author_id != $user->id)e(2,"error user id");
-        $bookitem = $book->Items()->where('id', $item_id)->find();
-        if(!$bookitem)e(3,'error item id');
+        $bookitem = BookItem::where('id','=',$item_id);
+        if(!$bookitem)e(2,'item not find');
+        if($bookitem->book->author_id != $user->id)e(3,"unauthorized");
         $bookitem->allowField(['type', 'position', 'character_id','content'])
             ->save($inputs);
         s('success',$bookitem);
