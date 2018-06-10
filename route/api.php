@@ -87,12 +87,28 @@ Route::group('api', function(){
         //获得书内容
         Route::any(':id', 'api/BookController/getItems')
             ->pattern('id', '\d+');
-
+        //search book
+        Route::any('search','api/BookController/searchBook');
         //取得书列表
-        Route::any('/', 'api/BookController/getList');
+        Route::any('/$', 'api/BookController/getList');
         Route::any('all', 'api/BookController/getList');
         Route::any(':type', 'api/BookController/getList');
     });
+
+
+    //书人物(需验证)
+
+    Route::group('book/character',function (){
+
+        Route::any('add','api/BookCharacterController/add');
+
+        Route::any('edit','api/BookCharacterController/edit');
+
+        Route::any('remove','api/BookCharacterController/remove');
+
+    })->middleware('apiAuth');
+
+
 
 
     //用户评价(需验证)

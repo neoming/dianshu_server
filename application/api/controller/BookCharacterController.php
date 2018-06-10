@@ -12,13 +12,20 @@ namespace app\api\controller;
 use app\common\controller\Api;
 use app\common\model\Book;
 use app\common\model\BookCharacter;
+
 use app\common\model\User;
 use app\common\validate\BookCharacterValidate;
 
 class BookCharacterController extends Api
 {
 
-
+    /**
+     * @param User $user
+     * @param $book_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function add(User $user,$book_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
@@ -34,7 +41,14 @@ class BookCharacterController extends Api
         s('success', $character);
     }
 
-
+    /**
+     * @param User $user
+     * @param $character_id
+     * @param $book_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function edit(User $user,$character_id,$book_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
@@ -55,7 +69,14 @@ class BookCharacterController extends Api
         s("success");
     }
 
-
+    /**
+     * @param User $user
+     * @param $book_id
+     * @param $character_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function remove(User $user,$book_id,$character_id){
         $inputs = input('request.');
         $vali = new BookCharacterValidate();
@@ -66,12 +87,10 @@ class BookCharacterController extends Api
         $book = Book::where('id',$book_id)->find();
         if(!$book)e(2,'no such book');
 
-        $character = BookCharacter::where('id',$character_id)->find();
-        if(!$character)e(3,'no such character');
 
         if($user->id != $book->author_id)e(3,'user_id don not match the author_id');
 
-        $character->delet();
+        BookCharacter::where('id',$character_id)->delete();
         s("success");
     }
 

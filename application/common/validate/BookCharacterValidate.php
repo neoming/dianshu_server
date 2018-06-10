@@ -9,7 +9,9 @@
 namespace app\common\validate;
 
 
-class BookCharacterValidate
+use think\Validate;
+
+class BookCharacterValidate extends Validate
 {
     protected $rule = [
         'book_id' => 'require|number',
