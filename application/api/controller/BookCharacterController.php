@@ -112,6 +112,6 @@ class BookCharacterController extends Api
         $characters = BookCharacter::where('book_id','=',$book_id)->select();
         $count = $characters->count();
         if(!$count)e(4,'no characters yet');
-        s("success2",$characters);
+        s("success",$characters);
     }
 }
