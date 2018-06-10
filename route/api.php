@@ -93,7 +93,8 @@ Route::group('api', function(){
         //取得书列表
         Route::any('/$', 'api/BookController/getList');
         Route::any('all', 'api/BookController/getList');
-        Route::any(':type', 'api/BookController/getList');
+        Route::any(':type', 'api/BookController/getList')
+            ->pattern('type', '[\w\-]+');
     });
 
     //用户评价(需验证)
