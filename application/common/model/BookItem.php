@@ -20,6 +20,6 @@ class BookItem extends Model
     }
 
     public function character(){
-        return $this->belongsTo('BookCharacter', 'character_id', 'id')->field('name,avatar');
+        return $this->belongsTo('BookCharacter', 'character_id', 'id');
     }
 }
