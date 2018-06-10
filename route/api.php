@@ -94,7 +94,8 @@ Route::group('api', function(){
         Route::any(':type', 'api/BookController/getList');
     });
 
-
+    //search book
+    Route::any('search','api/BookController/searchBook');
     //书人物(需验证)
 
     Route::group('book/character',function (){
