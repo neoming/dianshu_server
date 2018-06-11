@@ -20,11 +20,11 @@ class BookScore extends Model
     //public $autoWriteTimestamp = true;
     protected $readonly = ['id'];
 
-    public function bookinfo(){
+    public function bookInfo(){
         return $this->belongsTo("Book","book_id","id");
     }
 
-    public function userinfo(){
+    public function userInfo(){
         return $this->belongsTo("User","user_id","id");
     }
 
