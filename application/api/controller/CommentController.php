@@ -69,8 +69,8 @@ class CommentController extends Api
         if(!$comm){
             e(1,"no comment available");
         }
-        $comm->userinfo;
-        $comm->bookinfo;
+        $comm->user_info;
+        $comm->book_info;
         s("success",$comm);
     }
 
@@ -82,8 +82,8 @@ class CommentController extends Api
         }
         $comm=$comm->order("update_at","DESC")->limit($page*10,10)->select();
         foreach ($comm as $item){
-            $item->userInfo;
-            $item->bookInfo;
+            $item->user_info;
+            $item->book_info;
         }
         s("success",$comm);
     }
