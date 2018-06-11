@@ -20,6 +20,12 @@ Route::group('api', function(){
 
         //登录
         Route::any('login', 'api/UserController/login');
+
+        Route::any('get_followings', 'api/UserController/getFollowingList');
+
+        Route::any('get_followed_bys', 'api/UserController/getFollowedByList');
+
+        Route::any('get_favorings', 'api/UserFavorController/getFavoringList');
     });
 
     //用户相关(需验证)
@@ -34,15 +40,9 @@ Route::group('api', function(){
 
         Route::any('unfollow', 'api/UserController/unfollow');
 
-        Route::any('get_followings', 'api/UserController/getFollowingList');
-
-        Route::any('get_followed_bys', 'api/UserController/getFollowedByList');
-
         Route::any('favor', 'api/UserFavorController/favor');
 
         Route::any('unfavor', 'api/UserFavorController/unfavor');
-
-        Route::any('get_favorings', 'api/UserFavorController/getFavoringList');
 
         Route::any('is_favored', 'api/UserFavorController/isFavored');
 

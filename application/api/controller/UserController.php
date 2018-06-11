@@ -11,6 +11,7 @@ namespace app\api\controller;
 
 use app\common\controller\Api;
 use app\common\model\User;
+use app\common\model\UserFavor;
 use app\common\model\UserFollow;
 use app\common\validate\UserValidate;
 
@@ -130,7 +131,17 @@ class UserController extends Api
         s();
     }
 
-    public function getFollowingList(User $user, $page = 1){
+    /**
+     * @param $user_id
+     * @param int $page
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getFollowingList($user_id, $page = 1){
+        $user = User::get($user_id);
+        if(is_null($user))
+            e(1, 'user not exist');
         $follows = $user->followings()->where('status', 1)->page($page, 15)->select();
         foreach ($follows as $follow){
             $follow->to_user;
@@ -138,7 +149,17 @@ class UserController extends Api
         s('success', $follows);
     }
 
-    public function getFollowedByList(User $user, $page = 1){
+    /**
+     * @param $user_id
+     * @param int $page
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getFollowedByList($user_id, $page = 1){
+        $user = User::get($user_id);
+        if(is_null($user))
+            e(1, 'user not exist');
         $follows = $user->followedBys()->where('status', 1)->page($page, 15)->select();
         foreach ($follows as $follow){
             $follow->from_user;
