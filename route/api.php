@@ -116,7 +116,7 @@ Route::group('api', function(){
         Route::any('search','api/BookController/searchBook');
 
         Route::any('view', 'api/BookController/view');
-
+        Route::any('info', 'api/BookController/info');
         //取得书列表
         Route::any('/$', 'api/BookController/getList');
         Route::any('all', 'api/BookController/getList');
