@@ -131,9 +131,7 @@ class BookController extends Api
         if(is_null($book))
             e(1, 'book not found');
         $book->author;
-        s('success', [
-            'book' => $book
-        ]);
+        s('success', $book);
     }
 
 }
