@@ -75,7 +75,10 @@ class UserController extends Api
         if(is_null($requestedUser))
             e(1, 'user not exist');
         $sered = $requestedUser->toArray();
-        $sered['followed'] = $requestedUser->followedBys()->where('from_user_id', $user->id)->find();
+        $sered['followed'] = $requestedUser->followedBys()
+            ->where('from_user_id', $user->id)
+            ->where('status', 1)
+            ->find();
         s('success', $sered);
     }
 
