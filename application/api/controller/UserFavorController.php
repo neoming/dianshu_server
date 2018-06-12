@@ -62,8 +62,13 @@ class UserFavorController extends Api
         s();
     }
 
-    public function getFavoringList(User $user, $page = 1){
-        $favorings = $user->favorings()->where('favored',1)->page($page, 10)->select();
+    public function getFavoringList($user_id, $page = 1){
+        $user = User::get($user_id);
+        if(is_null($user))
+            e(1, 'user not found');
+        $favorings = $user->favorings()->where('favored',1)
+            ->page($page, 10)
+            ->select();
         foreach ($favorings as $favor){
             $favor->book->author;
         }
