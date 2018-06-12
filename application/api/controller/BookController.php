@@ -101,6 +101,12 @@ class BookController extends Api
             ->select();
         $count = $books->count();
         if(!$count)e(1,'no book find');
+        foreach ($books as $book){
+            /**
+             * @var Book $book
+             */
+            $book->author;
+        }
         s('success',$books);
     }
 
