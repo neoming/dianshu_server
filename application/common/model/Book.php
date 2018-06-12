@@ -50,8 +50,8 @@ class Book extends Model
      * @throws \think\Exception
      */
     public function decrItemsCount(){
-        if(is_null($this->items_count)){
-            $this->items_count = 1;
+        if(is_null($this->items_count) || $this->items_count <= 0){
+            $this->items_count = 0;
             $this->save();
         }else{
             $this->setDec('items_count');
@@ -74,7 +74,7 @@ class Book extends Model
      * @throws \think\Exception
      */
     public function decrFavoredCount(){
-        if(is_null($this->favor_count)){
+        if(is_null($this->favor_count) || $this->favor_count <= 0){
             $this->favor_count = 0;
             $this->save();
         }else{
@@ -92,7 +92,7 @@ class Book extends Model
     }
 
     public function decrScoreCount(){
-        if(is_null($this->score_count)){
+        if(is_null($this->score_count) || $this->score_count <= 0){
             $this->score_count = 0;
             $this->save();
         }else{
@@ -111,7 +111,7 @@ class Book extends Model
     }
 
     public function decrScoreTotal($score){
-        if(is_null($this->score_total)){
+        if(is_null($this->score_total) || $this->score_total <= 0){
             $this->score_total = 0;
             $this->save();
         }else{

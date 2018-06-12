@@ -68,7 +68,7 @@ class User extends Model
     }
 
     public function decrFollowingCount(){
-        if(is_null($this->following_count)){
+        if(is_null($this->following_count) || $this->following_count <= 0){
             $this->following_count = 0;
             $this->save();
         }else{
@@ -86,7 +86,7 @@ class User extends Model
     }
 
     public function decrFollowedCount(){
-        if(is_null($this->followed_by_count)){
+        if(is_null($this->followed_by_count) || $this->followed_by_count <= 0){
             $this->followed_by_count = 0;
             $this->save();
         }else{
@@ -104,7 +104,7 @@ class User extends Model
     }
 
     public function decrFavoringCount(){
-        if(is_null($this->favoring_count)){
+        if(is_null($this->favoring_count) || $this->favoring_count <= 0){
             $this->favoring_count = 0;
             $this->save();
         }else{
