@@ -16,8 +16,7 @@ use think\Model;
 class BookScore extends Model
 
 {
-
-    //public $autoWriteTimestamp = true;
+    public $autoWriteTimestamp = true;
     protected $readonly = ['id'];
 
     public function book(){
@@ -27,15 +26,4 @@ class BookScore extends Model
     public function user(){
         return $this->belongsTo("User","user_id","id");
     }
-
-    public function createTime(){
-        $this->create_at=time();
-        $this->save();
-    }
-
-    public function updateTime(){
-        $this->update_at=time();
-        $this->save();
-    }
-
 }

@@ -31,6 +31,9 @@ class Book extends Model
         return $this->hasMany('UserFavor', 'book_id', 'id');
     }
 
+    public function comments(){
+        return $this->hasMany('BookScore', 'book_id', 'id');
+    }
     /**
      * @throws \think\Exception
      */
@@ -76,6 +79,53 @@ class Book extends Model
             $this->save();
         }else{
             $this->setDec('favor_count');
+        }
+    }
+
+    public function incrScoreCount(){
+        if(is_null($this->score_count)){
+            $this->score_count = 1;
+            $this->save();
+        }else{
+            $this->setInc('score_count');
+        }
+    }
+
+    public function decrScoreCount(){
+        if(is_null($this->score_count)){
+            $this->score_count = 0;
+            $this->save();
+        }else{
+            $this->setDec('score_count');
+        }
+    }
+
+    public function incrScoreTotal($score){
+        if(is_null($this->score_total)){
+            $this->score_total = $score;
+            $this->save();
+        }else{
+            $this->score_total += $score;
+            $this->save();
+        }
+    }
+
+    public function decrScoreTotal($score){
+        if(is_null($this->score_total)){
+            $this->score_total = 0;
+            $this->save();
+        }else{
+            $this->score_total -= $score;
+            $this->save();
+        }
+    }
+
+    public function incrViewCount(){
+        if(is_null($this->view_count)){
+            $this->view_count = 1;
+            $this->save();
+        }else{
+            $this->setInc('view_count');
         }
     }
 
