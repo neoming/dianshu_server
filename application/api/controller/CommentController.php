@@ -119,8 +119,12 @@ class CommentController extends Api
         if(is_null($book)){
             e(1, "no such book");
         }
-
-        s("success");
+        $comments=$book->comments()->page($page,10)->select();
+        foreach ($comments as $comm){
+            $comm->user;
+            $comm->book;
+        }
+        s("success",$comments);
     }
 
     public function get_my_comment_list($page = 1, User $user)

@@ -82,6 +82,31 @@ Route::group('api', function(){
         Route::any('characters','api/BookCharacterController/getCharacterList');
     })->middleware('apiAuth');
 
+    //书评价(不需验证)
+    Route::group('book/comment',function (){
+        Route::any('get_comment_list','api/CommentController/get_comment_list');
+    });
+
+    //书评价(需验证)
+    Route::group('book/comment',function (){
+
+        Route::any('comment','api/CommentController/comment');
+
+        Route::any('edit','api/CommentController/edit');
+
+        Route::any('delete','api/CommentController/delete');
+
+        Route::any('get_comment_list','api/CommentController/get_comment_list');
+
+        Route::any('get_comment','api/CommentController/get_comment');
+
+        Route::any('get_my_comment_list','api/CommentController/get_my_comment_list');
+
+        Route::any('info','api/CommentController/info');
+
+    })->middleware('apiAuth');
+
+
     //书相关(不需验证)
     Route::group('book', function(){
 
@@ -96,22 +121,5 @@ Route::group('api', function(){
         Route::any(':type', 'api/BookController/getList')
             ->pattern('type', '[\w\-]+');
     });
-
-    //用户评价(需验证)
-    Route::group('comment',function (){
-
-        Route::any('comment','api/CommentController/comment');
-
-        Route::any('edit','api/CommentController/edit');
-
-        Route::any('delete','api/CommentController/delete');
-
-        Route::any('get_comment','api/CommentController/get_comment');
-
-        Route::any('get_my_comment_list','api/CommentController/get_my_comment_list');
-
-        Route::any('info','api/CommentController/info');
-
-    })->middleware('apiAuth');
 
 });
