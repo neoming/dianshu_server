@@ -33,10 +33,10 @@ class CommentController extends Api
         if (!is_null($comm->where(["user_id" => $user->id, "book_id" => $inputs["book_id"]])->find())) {
             e(2, "you have commented it");
         }
-        $comm->book->incrScoreCount();
-        $comm->book->incrScoreTotal(intval($inputs['score']));
         $inputs['user_id'] = $user->id;
         $comm->allowField("user_id,book_id,score,comment")->save($inputs);
+        $comm->book->incrScoreCount();
+        $comm->book->incrScoreTotal(intval($inputs['score']));
         s("success");
     }
 
