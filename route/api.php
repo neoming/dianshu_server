@@ -109,12 +109,14 @@ Route::group('api', function(){
 
     //书相关(不需验证)
     Route::group('book', function(){
-
         //获得书内容
         Route::any(':id', 'api/BookController/getItems')
             ->pattern('id', '\d+');
         //search book
         Route::any('search','api/BookController/searchBook');
+
+        Route::any('view', 'api/BookController/view');
+
         //取得书列表
         Route::any('/$', 'api/BookController/getList');
         Route::any('all', 'api/BookController/getList');

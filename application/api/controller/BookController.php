@@ -104,4 +104,19 @@ class BookController extends Api
         s('success',$books);
     }
 
+    /**
+     * @param $book_id
+     * @throws \think\exception\DbException
+     */
+    public function view($book_id){
+        /**
+         * @var Book book
+         */
+        $book = Book::get($book_id);
+        if(is_null($book))
+            e(1, 'book not found');
+        $book->incrViewCount();
+        s();
+    }
+
 }
